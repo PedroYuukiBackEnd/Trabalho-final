@@ -4,7 +4,7 @@ import os
 
 load_dotenv()
 
-def conector():
+def conectar():
     try:
         conexao = psycopg2.connect(
             database=os.getenv("DB_NAME", "estoque"),
@@ -19,5 +19,4 @@ def conector():
     except Exception as erro:
         print(f"Erro de conexão: {erro}")
         return None, None
-
-conector()
+conectar()
