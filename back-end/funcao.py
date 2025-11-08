@@ -1,6 +1,6 @@
 from conexao import conectar
 
-def criar_table():
+def criar_tabela():
     conexao, cursor = conectar()
     if conexao:
         try:
@@ -11,7 +11,7 @@ def criar_table():
                 categoria TEXT NOT NULL,
                 preco REAL NOT NULL,
                 quantidade INTEGER
-            )               
+                )
             """)
             conexao.commit()
         except Exception as erro:
@@ -19,3 +19,20 @@ def criar_table():
         finally:
             cursor.close()
             conexao.commit()
+
+
+def cadastrar_produto(nome_produto, categoria_produto, preco_produto, quant_produto):
+    conexao, cursor = conectar()
+    if conexao:
+        try:
+            cursor.execute(
+                "INSERT INTO produtos (nome, categoria, preco, quantidade) VALUES (%s, %s, %s, %s)",
+                (nome_produto, categoria_produto, preco_produto, quant_produto)
+            )
+            conexao.commit()
+        except Exception as erro:
+            print(f"Erro ao cadastrar o Produto: {erro}")
+        finally:
+            cursor.close()
+            conexao.close()
+
