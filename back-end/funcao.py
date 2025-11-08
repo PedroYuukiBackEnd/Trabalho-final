@@ -51,3 +51,22 @@ def listar_produto():
         finally:
             cursor.close()
             conexao.close()
+
+def atualizar_produto(id, novo_preco, nova_quantidade):
+    conexao, cursor = conectar() 
+    if conexao:
+        try:
+            cursor.execute(
+                "UPDATE produtos SET preco = %s, quantidade = %s WHERE id = %s",
+                (novo_preco, nova_quantidade, id)
+            )
+            conexao.commit()
+            if cursor.rowcount > 0:
+                print("Produto atualizado com sucesso!")
+            else:
+                print("Nenhum produto encontrado com esse ID.")
+        except Exception as erro:
+            print(f"Erro ao tentar atualizar produto: {erro}")
+        finally:
+            cursor.close()
+            conexao.close()
